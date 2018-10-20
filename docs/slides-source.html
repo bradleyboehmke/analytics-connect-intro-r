@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>An .red[Incomplete] Introduction to R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Brad Boehmke" />
+    <meta name="date" content="2018-11-01" />
+    <link rel="stylesheet" href="scrollable.css" type="text/css" />
+    <link rel="stylesheet" href="mtheme_max.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme_max.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide   
+&lt;a href="https://github.8451.com/b294776/"&gt;&lt;img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"&gt;&lt;/a&gt;
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# An .red[Incomplete] Introduction to R
+
+## .font70[.italic['Success is stumbling from failure to failure with no loss of enthusiasm'] - Winston Churchill]
+
+### Brad Boehmke
+### 2018-11-01
+### Slides: TBD
+### Script: TBD
+### Data: TBD
+
+---
+
+class: center, middle, inverse
+
+# Introductions
+
+---
+
+# About me
+
+.pull-left[
+
+&lt;img src="images/name-tag.png" width="1360" style="display: block; margin: auto;" /&gt;
+
+* &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 496 512"&gt;&lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"/&gt;&lt;/svg&gt; bradleyboehmke.github.io
+* &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt; @bradleyboehmke
+* &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 512 512"&gt;&lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/&gt;&lt;/svg&gt; @bradleyboehmke
+* &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 448 512"&gt;&lt;path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/&gt;&lt;/svg&gt; @bradleyboehmke
+* &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 512 512"&gt;&lt;path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/&gt;&lt;/svg&gt; bradley.boehmke@8451.com
+
+]
+
+
+.pull-right[
+
+#### Family &lt;img src="images/family.png" align="right" alt="family" width="130" /&gt;
+
+* Dayton, OH
+* Kate, Alivia (9), Jules (6)
+
+
+#### Professional 
+
+* 84.51° - Data Science Enabler &lt;img src="images/logo8451.jpg" align="right" alt="family" width="150" /&gt;
+
+#### Academic
+
+* University of Cincinnati &lt;img src="images/uc.png" align="right" alt="family" width="100" /&gt;
+* Air Force Institute of Technology
+
+#### R Community
+
+&lt;img src="images/r-contributions.png" alt="family" width="400" /&gt;
+
+]
+
+
+---
+
+# Course objectives!
+
+&lt;br&gt;
+
+.font150[Provide an intensive, hands-on introduction to the &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 581 512"&gt;&lt;path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/&gt;&lt;/svg&gt; programming language:]
+
+1. Understand the fundamentals of the R &amp; RStudio ecosystem
+
+2. Import local data files
+
+3. Perform basic data transformation
+
+4. Visualize data
+
+
+---
+
+# A hands-on learning environment
+
+.pull-left[
+
+### You may be overwhelmed
+
+&lt;img src="images/drowning.gif" height="400" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+### So work together
+
+&lt;img src="images/dogs-helping.gif" height="400" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Class material
+
+&lt;a href="https://github.8451.com/b294776/analytics-connect-intro-r" class="github-corner" aria-label="View source on Github"&gt;&lt;svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"&gt;&lt;path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"&gt;&lt;/path&gt;&lt;path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"&gt;&lt;/path&gt;&lt;path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;style&gt;.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}&lt;/style&gt;
+
+.pull-left[
+
+### Source code &lt;svg style="height:0.8em;top:.04em;position:relative;fill:black;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt;
+
+- Slides:
+
+- Student Script:
+
+- Data:
+
+- Internal Repo: https://github.8451.com/b294776/analytics-connect-intro-r
+
+- External Repo: 
+
+]
+
+--
+
+.pull-right[
+
+### Effoverse &lt;a href="https://github.8451.com/pages/effoverse/effoverse.github.io/"&gt;&lt;img src="images/effoverse-logo-color.png" width="35" align="center"/&gt;&lt;/a&gt;
+
+- http://effoverse.8451.com
+
+&lt;img src="images/effoverse.png" width="500" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: yourturn
+# Your Turn!
+
+&lt;br&gt;
+## .font150[Meet your neighbors:]
+
+.font140[
+1. What is their experience with R?
+2. What programming experience other than R do they have?
+2. How are they using, or how do they plan to use, R in their job?
+]
+
+---
+
+class: center, middle, inverse
+
+# Prerequisites
+
+---
+
+# Software
+
+.pull-left[
+
+### R (programming language) &lt;svg style="height:0.8em;top:.04em;position:relative;fill:steelblue;" viewBox="0 0 581 512"&gt;&lt;path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/&gt;&lt;/svg&gt;
+
+1. Go to https://cran.r-project.org/
+2. Click "Download R for Mac/Windows"
+3. Download the appropriate file:
+   - Windows users click Base, and download the installer for the latest R version
+   - Mac users select the file R-3.X.X that aligns with your OS version
+4. Follow the instructions of the installer   
+
+]
+
+.pull-right[
+
+### RStudio (IDE) &lt;img src="https://dfsuknfbz46oq.cloudfront.net/p/icons/rstudio.png" width="35" align="center"/&gt;
+
+1. Go to RStudio for desktop https://www.rstudio.com/products/rstudio/download/#download
+2. Select the install file for your OS
+3. Follow the instructions of the installer  
+
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+.content-box-gray[.bold[You will normally be using R and RStudio via company servers/GCP.]]
+]
+
+
+---
+
+# Questions about the class
+
+&lt;br&gt;
+
+&lt;img src="images/questions.png" width="450" height="450" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle, inverse
+
+# Fundamentals
+
+---
+
+# Understanding the RStudio IDE
+
+&lt;img src="images/RStudio-console.png" width="2299" style="display: block; margin: auto;" /&gt;
+
+.center[Learn more IDE features: `Help &gt;&gt; Cheatsheets &gt;&gt; RStudio IDE Cheat Sheet`]
+
+---
+class: yourturn
+# Your Turn!
+
+&lt;br&gt;&lt;br&gt;
+.font130[
+(1). Open the .R script for this class (`intro_r_training.R`)
+]
+.pull-left[
+.font130[
+(2) Write and execute the following code in the .R script and identify where in the IDE the outputs can be found:
+]]
+
+.pull-right[
+
+
+```r
+mtcars
+?sum
+hist(mtcars$mpg)
+random_numbers &lt;- runif(25)
+history()
+```
+]
+
+---
+
+# Getting help
+
+.pull-left[
+
+### In general
+
+* __Google__: just add "with R" at the end of any search
+* __Stack Overflow__: focused on programming questions
+* __Cross Validated__: focused on statistical questions
+
+### FOMO
+
+* __R-bloggers__: blog aggregator
+* __Twitter__: #rstats
+
+]
+
+.pull-right[
+
+### Within R
+
+
+```r
+# provides details for specific function
+help(sqrt)
+?sqrt
+
+# provides examples for said function
+example(sqrt)
+```
+
+
+]
+
+---
+
+# Setting your working directory
+
+&lt;br&gt;&lt;br&gt;
+.pull-left-60[
+
+```r
+# get your current working directory
+getwd()
+## [1] "/Users/b294776/Desktop/Training"
+
+# set your working directory
+setwd("/Users/b294776/Desktop/Training/analytics-connect-intro-r")
+
+getwd()
+## [1] "/Users/b294776/Desktop/Training/analytics-connect-intro-r"
+```
+
+&lt;br&gt;&lt;br&gt;
+.center[.bold[.content-box-gray[Keeping your files organized is critical!]]]
+
+]
+
+--
+
+.pull-right-40[
+
+.center[.font120[.red[Set your working directory to the location you want to work in for this training.]]]
+
+]
+
+---
+
+# Some basics
+
+.pull-left[
+
+### R as a calculator
+
+
+```r
+# uses PEMBDAS convention for order of operations
+4 + 3 / 10 ^ 2
+## [1] 4.03
+(4 + 3) / 10 ^ 2
+## [1] 0.07
+(4 + 3 / 10) ^ 2
+## [1] 18.49
+
+# calculations with NA produces NA
+4 + 3 / 10 ^ NA 
+## [1] NA
+```
+
+]
+
+--
+
+.pull-right[
+
+### Assigning &amp; evaluating
+
+
+```r
+x &lt;- 4 + 3 / 10 ^ 2   # GOOD
+x = 4 + 3 / 10 ^ 2    # BAD
+
+# we can increment (build onto) existing objects
+x
+## [1] 4.03
+x &lt;- x + 1
+x
+## [1] 5.03
+
+# evaluation is case sensitive
+X
+## Error in eval(expr, envir, enclos): object 'X' not found
+```
+
+
+]
+
+---
+
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Economic Order Quantity Model
+
+`$$Q = \sqrt{\frac{2DK}{h}}$$`
+
+Calculate *Q* where:
+
+* `\(D=1000\)`
+* `\(K=5\)`
+* `\(h=0.25\)`
+
+Save the result to an object called *Q*.
+
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+D &lt;- 1000
+K &lt;- 5
+h &lt;- .25
+
+Q &lt;- sqrt(2 * D * K / h)
+Q
+## [1] 200
+```
+
+
+]
+
+---
+
+# Workspace environment
+
+.pull-left[
+* You should now have 4 objects in your global environment
+* History tab will show your recent code
+* To list and remove these objects from your globa environment:
+
+
+```r
+# list all objects
+ls()
+## [1] "D" "h" "K" "Q"
+
+# remove a single object
+rm(D)
+
+# remove all objects
+rm(list = ls())
+```
+
+]
+
+.pull-right[
+
+&lt;img src="images/workspace.png" width="1365" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+# Packages
+
+The fundamental unit of shareable code is the .bold[package].
+
+* CRAN: 13,000+
+* Bioconductor: 1,500+
+* GitHub: Many more plus beta versions for updated packages not yet published
+
+.blue[So how do we install these packages?]
+
+
+```r
+# install packages from CRAN
+*install.packages("packagename")
+
+# install packages from GitHub
+install.packages("devtools")                            # only required the first time
+devtools::install_github("username/packagename")
+```
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+.bold[.font120[Download these packages from CRAN:]]
+.font120[
+* tidyverse
+* nycflights
+]
+]
+
+--
+
+.pull-right[
+.bold[.font120[Solution:]]
+
+
+```r
+install.packages("tidyverse")
+install.packages("nycflights13")
+
+
+# alternative
+install.packages(c("tidyverse", "nycflights13"))
+```
+
+
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[.content-box-gray[For a full list of useful packages see this guide:  http://bit.ly/1x9vkzV]]
+
+---
+
+# Packages
+
+.bold[.font120[Loading packages:]]
+
+
+```r
+# load the package to use in the current R session
+library(tidyverse)
+
+# use a particular function within a package without loading the package
+stringr::str_replace()
+```
+
+
+.bold[.font120[Getting help with packages:]]
+
+
+```r
+# provides details regarding contents of a package
+help(package = "tidyr")
+
+# list vignettes available for a specific package
+vignette(package = "tidyr") 
+
+# view specific vignette
+vignette(“tidy-data")
+```
+
+---
+
+# What is tidyverse?
+
+.pull-left[
+
+.bold[A collection of packages...]
+
+&lt;img src="images/tidyverse.png" width="1365" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+.bold[designed to simplify data analysis]
+
+&lt;br&gt;
+
+&lt;img src="images/tidyverse-process.png" width="2543" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Questions before moving on?
+
+&lt;br&gt;
+
+&lt;img src="images/questions.png" width="450" height="450" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle, inverse
+
+# Importing Data
+
+---
+
+# Source to data frame
+
+&lt;img src="images/data-import.png" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Applying within R
+
+.pull-left[
+
+### Flat files
+
+
+```r
+# load readr library (or tidyverse)
+library(readr)
+
+# import data
+my_csv_data &lt;- read_csv("data/mydata.csv")
+my_csv_data
+## # A tibble: 3 x 3
+##   `variable 1` `variable 2` `variable 3`
+##          &lt;int&gt; &lt;chr&gt;        &lt;lgl&gt;       
+## 1           10 beer         TRUE        
+## 2           25 wine         TRUE        
+## 3            8 cheese       FALSE
+```
+
+
+]
+
+.pull-right[
+
+### Excel files
+
+
+```r
+# load readxl library (tidyverse does not automatically load)
+library(readxl)
+
+# read sheet names
+excel_sheets("data/mydata.xlsx")
+## [1] "PICK_ME_FIRST!" "Sheet2"         "extra_header"   "functions"     
+## [5] "date_time"      "unique_NA"
+
+# load specified sheet
+my_xlsx_data &lt;- read_excel("data/mydata.xlsx", sheet = "PICK_ME_FIRST!")
+my_xlsx_data
+## # A tibble: 3 x 3
+##   `variable 1` `variable 2` `variable 3`
+##          &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;       
+## 1           10 beer         TRUE        
+## 2           25 wine         TRUE        
+## 3            8 cheese       FALSE
+```
+
+
+]
+
+---
+
+# Additional arguments
+
+.font120[Both readr &amp; readxl have many arguments that allow you to...]
+
+.pull-left[
+
+### readr
+
+* read .tsv, .txt, .fwf, and other flat files
+* change column names
+* change data types
+* skip lines
+* re-label missing values
+]
+
+.pull-right[
+
+### readxl
+
+* read a specified range from the spreadsheet
+* change column names
+* change data types
+* skip lines
+* re-label missing values
+
+]
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-gray[.bold[But these are more advanced options you can learn on your own]]]
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+1. Read in the __CustomerData.csv__ file and save as customers
+2. What spreadsheets are contained in the __CustomerData.xlsx__ file?
+3. Read in the spreadsheet that contains the data.
+
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+# 1 
+customers &lt;- read_csv("data/CustomerData.csv")
+dim(customers)
+## [1] 5000   59
+
+# 2
+excel_sheets("data/CustomerData.xlsx")
+## [1] "Metadata" "Data"     "Sheet3"
+
+# 3
+customers2 &lt;- read_excel("data/CustomerData.xlsx", sheet = "Data")
+dim(customers2)
+## [1] 5000   59
+```
+
+
+]
+
+---
+
+# What if we have a .font130[big] csv file?
+
+.pull-left[
+
+### Your Next Basket data set
+
+* 840,861 observations
+* 723 variables
+* equates to 607,942,503 elements
+* 2.7 GB
+
+]
+
+.pull-right[
+
+### data.table::fread to the rescue
+
+
+```r
+# time to import with base R (27 minutes)
+system.time(ynb1 &lt;- read.csv("data/ynb_cheese.csv"))
+##    user  system elapsed 
+## 317.349 1159.192 1678.552
+
+# time to import with readr (10 minutes)
+system.time(ynb2 &lt;- readr::read_csv("data/ynb_cheese.csv"))
+##    user   system  elapsed 
+## 500.954  71.776 594.505
+
+# time to import with data.table::fread (1 minute)
+*system.time(ynb3 &lt;- data.table::fread("data/ynb_cheese.csv"))
+*##   user  system elapsed
+*## 40.174   9.861  64.625
+
+```
+
+
+]
+
+---
+
+# Get to know your data
+
+.font120[Try these functions on your __customers__ data:]
+
+
+```r
+# dimensions (rows x columns)
+dim(customers)
+
+# get a quick glimpse of the data
+glimpse(customers)
+
+# get the names of all the variables
+names(customers)
+
+# how many missing values exist
+sum(is.na(customers))
+
+# omit all observations with missing values
+clean_data &lt;- na.omit(customers)
+
+# view the data in a spreadsheet like viewer
+View(customers)
+```
+
+--
+&lt;br&gt;
+.center[.content-box-gray[.bold[.red[So we have our data, now what?]]]]
+
+---
+
+class: center, middle, inverse
+
+# Transforming Data
+
+---
+
+# dplyr
+
+You are going to learn six key .bold[dplyr] functions that allow you to solve the vast majority of your data manipulation challenges:
+
+.pull-left[
+
+.font120[
+* .bold[`filter`]: pick observations based on values
+* .bold[`arrange`]: reorder data
+* .bold[`select`]: pick variables
+* .bold[`mutate`]: create new variables
+* .bold[`summarize`]: compute statistical summaries 
+* .bold[`xx_join`]: different ways to join data sets
+]
+]
+
+.pull-right[
+
+&lt;img src="images/dplyr.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+]
+
+.center[.content-box-gray[.bold[Probably the majority of what you do in SQL now.]]]
+
+---
+
+# Basics
+
+.font130[All functions work similarly:]
+.font120[
+* The first argument is a data frame
+* Subsequent arguments describe what to do
+* Output is a new data frame
+]
+
+&lt;br&gt;
+
+&lt;img src="images/function-in-out.png" width="1343" style="display: block; margin: auto;" /&gt;
+
+---
+# Prerequisites
+
+.pull-left[
+
+### Packages
+
+
+```r
+library(nycflights13)
+library(dplyr) # or library(tidyverse)
+```
+
+
+]
+
+.pull-right[
+
+### Data
+
+
+```r
+flights
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+]
+
+---
+
+# Filtering variables
+
+.bold[We can filter our data set based on given conditions for one or more variables with `filter()`]
+
+--
+
+.scrollable90[
+
+
+```r
+# filter for all observations in month 1 (January)
+filter(flights, month == 1)
+## # A tibble: 27,004 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 26,994 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+
+# filter for all observations on January 1st
+filter(flights, month == 1, day == 1)
+## # A tibble: 842 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 832 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+
+# filter for all observations on January 1st with a departure delay
+filter(flights, month == 1, day == 1, dep_delay &gt; 0)
+## # A tibble: 352 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      601            600         1      844
+##  5  2013     1     1      608            600         8      807
+##  6  2013     1     1      611            600        11      945
+##  7  2013     1     1      613            610         3      925
+##  8  2013     1     1      623            610        13      920
+##  9  2013     1     1      632            608        24      740
+## 10  2013     1     1      644            636         8      931
+## # ... with 342 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+]
+
+---
+
+# Save new data frame
+
+.bold[dplyr functions .red[do not] over-write data; must save to a new data frame object.]
+
+
+```r
+dec25 &lt;- filter(flights, month == 12, day == 25)
+dec25
+## # A tibble: 719 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013    12    25      456            500        -4      649
+##  2  2013    12    25      524            515         9      805
+##  3  2013    12    25      542            540         2      832
+##  4  2013    12    25      546            550        -4     1022
+##  5  2013    12    25      556            600        -4      730
+##  6  2013    12    25      557            600        -3      743
+##  7  2013    12    25      557            600        -3      818
+##  8  2013    12    25      559            600        -1      855
+##  9  2013    12    25      559            600        -1      849
+## 10  2013    12    25      600            600         0      850
+## # ... with 709 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+---
+
+# Comparison operators
+
+.bold[We can use multiple comparison operators for our condition statements]
+
+.pull-left[
+
+.center[.font120[.bold[`?Comparison`]]]
+
+.font90[
+Function  | Description
+------- | ------
+`&lt;` | less than
+`&gt;` | greater than
+`==` | equal to
+`&lt;=` | less than or equal to
+`&gt;=` | greater than or equal to
+`!=` | not equal to
+`%in%` | group membership
+`is.na` | is missing
+`!is.na` | is not missing
+]
+]
+
+.pull-right[
+
+.center[.font120[.bold[What will these produce?]]]
+
+
+```r
+filter(flights, month == 12)
+filter(flights, month != 12)
+filter(flights, month %in% c(11, 12))
+filter(flights, arr_delay &lt;= 120)
+filter(flights, !(arr_delay &lt;= 120))
+filter(flights, is.na(tailnum))
+```
+
+]
+
+---
+
+# Multiple comparison operators
+
+.bold[And we can combine multiple comparison operators]
+
+.pull-left[
+
+.center[.font120[.bold[`?base::Logic`]]]
+
+Function  | Description
+:------: | ------------
+`&amp;` | boolean and
+&amp;#x7c; | boolean or
+`!` | not
+`any` | any are true
+`all` | all are true
+
+]
+
+.pull-right[
+
+.center[.font120[.bold[What will these produce?]]]
+
+
+```r
+# set 1
+filter(flights, month == 12, day == 25)
+filter(flights, month == 12 &amp; day == 25)
+
+# set 2
+filter(flights, month == 11 | month == 12)
+filter(flights, month %in% c(11, 12))
+
+# set 3 --&gt; are these the same?
+filter(flights, !(arr_delay &gt; 120 | dep_delay &gt; 120))
+filter(flights, arr_delay &lt;= 120, dep_delay &lt;= 120)
+```
+
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+.font110[
+1. Import the CustomerData.csv file.
+
+2. Filter for female customers only.
+
+3. Filter for female customers that are greater than 45 years old and live in region 3.
+
+4. Filter for female customers that are greater than 45 years old or live in region 3.
+]
+]
+
+.pull-right[
+
+### Solution
+
+
+```r
+# 1: import the data
+customer &lt;- read_csv("data/CustomerData.csv")
+
+# 2: filter for female customers only
+filter(customer, Gender == "Female")
+
+# 3: filter for female customers that are greater than 45 years old and live in region 3
+filter(customer, Gender == "Female", Age &gt; 45, Region == 3)
+
+# 4: filter for female customers that are greater than 45 years old or live in region 3
+filter(customer, Gender == "Female", Age &gt; 45 | Region == 3)
+
+```
+
+]
+
+---
+
+# Selecting variables
+
+.bold[We can select variables of interest with the `select()` function]
+
+--
+
+.pull-left-30[
+
+
+```r
+select(flights, year, month, day)
+## # A tibble: 336,776 x 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # ... with 336,766 more rows
+```
+
+]
+
+.pull-left-30[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;center&gt;
+Same as `\(\longrightarrow\)`
+&lt;/center&gt;
+
+]
+
+.pull-right-30[
+
+
+```r
+select(flights, year:day)
+## # A tibble: 336,776 x 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # ... with 336,766 more rows
+```
+&lt;br&gt;
+]
+
+.center[.content-box-grey[.bold[You can also deselect variables: `select(flights, -(year:day))`]]]
+
+---
+
+# Select helper functions
+
+.bold[The real beauty of `select()` is in the helper functions.]
+.scrollable90[
+.pull-left[
+
+### Helper functions
+
+Function  | Description
+:------: | ------------
+`starts_with()` | select columns whose name starts with
+`ends_with()` | select columns whose name ends with
+`contains()` | select columns whose name contains with
+`matches` | select columns whose name matches a regular expression
+
+...and more (see `?tidyselect::select_helpers`)
+
+]
+
+.pull-right[
+
+### Examples
+
+
+```r
+# starts with example
+select(flights, starts_with("arr"))
+## # A tibble: 336,776 x 2
+##    arr_time arr_delay
+##       &lt;int&gt;     &lt;dbl&gt;
+##  1      830        11
+##  2      850        20
+##  3      923        33
+##  4     1004       -18
+##  5      812       -25
+##  6      740        12
+##  7      913        19
+##  8      709       -14
+##  9      838        -8
+## 10      753         8
+## # ... with 336,766 more rows
+
+# ends with example
+select(flights, ends_with("time"))
+## # A tibble: 336,776 x 5
+##    dep_time sched_dep_time arr_time sched_arr_time air_time
+##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt;
+##  1      517            515      830            819      227
+##  2      533            529      850            830      227
+##  3      542            540      923            850      160
+##  4      544            545     1004           1022      183
+##  5      554            600      812            837      116
+##  6      554            558      740            728      150
+##  7      555            600      913            854      158
+##  8      557            600      709            723       53
+##  9      557            600      838            846      140
+## 10      558            600      753            745      138
+## # ... with 336,766 more rows
+
+# combining different select helpers
+select(flights, c(carrier, ends_with("time"), contains("arr")))
+## # A tibble: 336,776 x 7
+##    carrier dep_time sched_dep_time arr_time sched_arr_time air_time
+##    &lt;chr&gt;      &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt;
+##  1 UA           517            515      830            819      227
+##  2 UA           533            529      850            830      227
+##  3 AA           542            540      923            850      160
+##  4 B6           544            545     1004           1022      183
+##  5 DL           554            600      812            837      116
+##  6 UA           554            558      740            728      150
+##  7 B6           555            600      913            854      158
+##  8 EV           557            600      709            723       53
+##  9 B6           557            600      838            846      140
+## 10 AA           558            600      753            745      138
+## # ... with 336,766 more rows, and 1 more variable: arr_delay &lt;dbl&gt;
+```
+
+
+]
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+
+.pull-left[
+
+### Challenge
+
+1. Using the customer data, select all columns between `CustomerID` and `Gender`.
+
+2. Now select all columns except those between and including `CustomerID` and `Gender`.
+
+3. Select `CustomerID` and all variables that contain the word "Card". 
+
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+# 1. select all variables between CustomerID and Gender
+select(customers, CustomerID:Gender)
+
+# 2. select all variables except for those between CustomerID and Gender
+select(customers, -(CustomerID:Gender))
+
+#3. select CustomerID and all variables that contain the word “Card”
+select(customers, CustomerID, contains("Card"))
+```
+
+]
+
+---
+
+# Arranging data based on values
+
+.bold[We can reorder variables in ascending or descending order with the `arrange()` function]
+
+--
+
+.scrollable90[
+
+.pull-left[
+
+### Ascending order
+
+
+```r
+arrange(flights, dep_time)
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1    13        1           2249        72      108
+##  2  2013     1    31        1           2100       181      124
+##  3  2013    11    13        1           2359         2      442
+##  4  2013    12    16        1           2359         2      447
+##  5  2013    12    20        1           2359         2      430
+##  6  2013    12    26        1           2359         2      437
+##  7  2013    12    30        1           2359         2      441
+##  8  2013     2    11        1           2100       181      111
+##  9  2013     2    24        1           2245        76      121
+## 10  2013     3     8        1           2355         6      431
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+
+]
+
+.pull-right[
+
+### Descending order
+
+
+```r
+arrange(flights, desc(dep_time))
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013    10    30     2400           2359         1      327
+##  2  2013    11    27     2400           2359         1      515
+##  3  2013    12     5     2400           2359         1      427
+##  4  2013    12     9     2400           2359         1      432
+##  5  2013    12     9     2400           2250        70       59
+##  6  2013    12    13     2400           2359         1      432
+##  7  2013    12    19     2400           2359         1      434
+##  8  2013    12    29     2400           1700       420      302
+##  9  2013     2     7     2400           2359         1      432
+## 10  2013     2     7     2400           2359         1      443
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+]
+]
+
+---
+
+# Arrange .red[.bold[always]] places missing values at bottom
+
+.pull-left[
+
+
+```r
+(df &lt;- tibble(x = c(5, 2, 5, NA)))
+## # A tibble: 4 x 1
+##       x
+##   &lt;dbl&gt;
+## 1     5
+## 2     2
+## 3     5
+## 4    NA
+```
+
+]
+
+.pull-right[
+
+
+```r
+arrange(df, x)
+## # A tibble: 4 x 1
+##       x
+##   &lt;dbl&gt;
+## 1     2
+## 2     5
+## 3     5
+## 4    NA
+arrange(df, desc(x))
+## # A tibble: 4 x 1
+##       x
+##   &lt;dbl&gt;
+## 1     5
+## 2     5
+## 3     2
+## 4    NA
+```
+
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+1. Select the variables `CustomerID`, `Region`, `Gender`, `Age`, `HHIncome`, `CardSpendMonth` and save this as .bold[`sub_cust`].
+
+2. Order .bold[`sub_cust`] data by `Age` and `CardSpendMonth` (ascending order)
+
+3. Order .bold[`sub_cust`] data by `Age` (oldest to youngest) and `CardSpendMonth` (least to most)
+
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+# 1: select variables
+sub_cust &lt;- select(customers, CustomerID, Region, Gender, Age, HHIncome, CardSpendMonth)
+
+# 2: Order sub_cust data by Age and CardSpendMonth (ascending order)
+arrange(sub_cust, Age, CardSpendMonth)
+
+# 3: Order sub_cust data by Age (oldest to youngest) and CardSpendMonth (least to most)
+arrange(sub_cust, desc(Age), CardSpendMonth)
+```
+
+]
+
+---
+
+# Mutate variables
+
+.bold[We can create new variables with the `mutate()` function]
+
+--
+
+.scrollable90[
+.pull-left[
+
+
+```r
+# create smaller data set so we can see the results
+flights_sml &lt;- select(flights, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+
+flights_sml
+## # A tibble: 336,776 x 4
+##    dep_delay arr_delay distance air_time
+##        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1         2        11     1400      227
+##  2         4        20     1416      227
+##  3         2        33     1089      160
+##  4        -1       -18     1576      183
+##  5        -6       -25      762      116
+##  6        -4        12      719      150
+##  7        -5        19     1065      158
+##  8        -3       -14      229       53
+##  9        -3        -8      944      140
+## 10        -2         8      733      138
+## # ... with 336,766 more rows
+```
+
+]
+
+.pull-right[
+
+
+```r
+# create two new variables (gain, speed)
+mutate(flights_sml,
+  gain = arr_delay - dep_delay,
+  speed = distance / air_time * 60
+)
+## # A tibble: 336,776 x 6
+##    dep_delay arr_delay distance air_time  gain speed
+##        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1         2        11     1400      227     9  370.
+##  2         4        20     1416      227    16  374.
+##  3         2        33     1089      160    31  408.
+##  4        -1       -18     1576      183   -17  517.
+##  5        -6       -25      762      116   -19  394.
+##  6        -4        12      719      150    16  288.
+##  7        -5        19     1065      158    24  404.
+##  8        -3       -14      229       53   -11  259.
+##  9        -3        -8      944      140    -5  405.
+## 10        -2         8      733      138    10  319.
+## # ... with 336,766 more rows
+
+# mutate creates variables in order so we can create 
+# variables from recently created variables
+mutate(flights_sml,
+  gain = arr_delay - dep_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+## # A tibble: 336,776 x 7
+##    dep_delay arr_delay distance air_time  gain hours gain_per_hour
+##        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
+##  1         2        11     1400      227     9 3.78           2.38
+##  2         4        20     1416      227    16 3.78           4.23
+##  3         2        33     1089      160    31 2.67          11.6 
+##  4        -1       -18     1576      183   -17 3.05          -5.57
+##  5        -6       -25      762      116   -19 1.93          -9.83
+##  6        -4        12      719      150    16 2.5            6.4 
+##  7        -5        19     1065      158    24 2.63           9.11
+##  8        -3       -14      229       53   -11 0.883        -12.5 
+##  9        -3        -8      944      140    -5 2.33          -2.14
+## 10        -2         8      733      138    10 2.3            4.35
+## # ... with 336,766 more rows
+```
+
+]
+]
+
+---
+
+# Mutate helper functions
+
+.bold[There are a wide variety of functions you can use within `mutate()`]
+
+_.blue[Must be vectorized functions - meaning the function must take a vector of values as input and return the same number of values as output.]_
+.scrollable[
+.pull-left[
+
+.font80[
+Function  | Description
+------- | ------
+`+,-,*,/,^` | arithmetic
+`x / sum(x)` | arithmetic w/aggregation
+`%/%, %%` | modular arithmetic
+`log, exp, sqrt` | transformations
+`lag, lead` | offsets
+`cumsum, cumprod, cum...` | cum/rolling aggregates
+`&gt;, &gt;=, &lt;, &lt;=, !=, ==` | logical comparisons
+`min_rank, dense_rank` | ranking
+`between` | are values between a and b?
+`ntile` | bin values into n buckets
+]
+
+]
+
+.pull-right[
+
+
+```r
+# mean center data
+transmute(flights, center_delay = dep_delay / mean(dep_delay, na.rm = TRUE))
+## # A tibble: 336,776 x 1
+##    center_delay
+##           &lt;dbl&gt;
+##  1       0.158 
+##  2       0.316 
+##  3       0.158 
+##  4      -0.0791
+##  5      -0.475 
+##  6      -0.316 
+##  7      -0.396 
+##  8      -0.237 
+##  9      -0.237 
+## 10      -0.158 
+## # ... with 336,766 more rows
+
+# transform values
+transmute(flights,
+  log_air_time = log2(air_time),
+  exp_delay = exp(dep_delay))
+## # A tibble: 336,776 x 2
+##    log_air_time exp_delay
+##           &lt;dbl&gt;     &lt;dbl&gt;
+##  1         7.83   7.39   
+##  2         7.83  54.6    
+##  3         7.32   7.39   
+##  4         7.52   0.368  
+##  5         6.86   0.00248
+##  6         7.23   0.0183 
+##  7         7.30   0.00674
+##  8         5.73   0.0498 
+##  9         7.13   0.0498 
+## 10         7.11   0.135  
+## # ... with 336,766 more rows
+
+# lag and cumsum values
+transmute(flights,
+  dep_delay = dep_delay,
+  lag_delay = lag(dep_delay),
+  sum_delay = cumsum(dep_delay))
+## # A tibble: 336,776 x 3
+##    dep_delay lag_delay sum_delay
+##        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1         2        NA         2
+##  2         4         2         6
+##  3         2         4         8
+##  4        -1         2         7
+##  5        -6        -1         1
+##  6        -4        -6        -3
+##  7        -5        -4        -8
+##  8        -3        -5       -11
+##  9        -3        -3       -14
+## 10        -2        -3       -16
+## # ... with 336,766 more rows
+```
+
+
+]
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+Using your .bold[customers] data
+
+1. Create a `ratio` variable that computes the ratio of `CardSpendMonth` to `HHIncome`
+
+2. Create two variables:
+    - ratio1 = CardSpendMonth / HHIncome
+    - ratio2 = CardSpendMonth / Age
+
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+#1: create a ratio variable that computes the ratio of CardSpendMonth to HHIncome
+mutate(customers, ratio = CardSpendMonth / HHIncome)
+
+#2: create 2 variables:
+#        i) ratio1 = CardSpendMonth / HHIncome
+#       ii) ratio2 = CardSpendMonth / Age
+mutate(customers, 
+  ratio1 = CardSpendMonth / HHIncome,
+  ratio2 = CardSpendMonth / Age
+  )
+```
+
+
+]
+
+---
+
+# Compute summary statistics
+
+.bold[We can compute summary statistics with the `summerize()` function]
+
+--
+
+.pull-left[
+
+### single statistic
+
+
+```r
+summarize(flights, dep_delay_mean = mean(dep_delay, na.rm = TRUE))
+## # A tibble: 1 x 1
+##   dep_delay_mean
+##            &lt;dbl&gt;
+## 1           12.6
+```
+
+.center[.content-box-grey[.bold[What does `na.rm` do?]]]
+
+]
+
+--
+
+.pull-right[
+
+### multiple statistics
+
+
+```r
+summarize(flights, 
+  dep_delay_mean = mean(dep_delay, na.rm = TRUE),
+  dep_delay_sd = sd(dep_delay, na.rm = TRUE),
+  n = n()
+)
+## # A tibble: 1 x 3
+##   dep_delay_mean dep_delay_sd      n
+##            &lt;dbl&gt;        &lt;dbl&gt;  &lt;int&gt;
+## 1           12.6         40.2 336776
+```
+
+]
+
+---
+
+# Summarize helper functions
+
+.bold[There are a wide variety of function you can use within `summarize()`]
+
+
+&lt;br&gt;
+
+.pull-left[
+
+.font80[
+Function  | Description
+------- | ------
+`min()`, `max()` | min, max values in vector
+`mean()` | mean value
+`median()` | median value
+`sum()` | sum of all vector values
+`var()`, `sd()` | variance/std of vector
+`first()`, `last()` | first/last value in vector
+`nth()` | nth value in vector
+`n()` | number of values in vector
+`n_distinct()` | number of distinct values in vector
+
+]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;img src="images/summarize_functions.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Summarizing .red[grouped] data
+
+.bold[Summary statistics become more powerful when we can compute and compare at different aggregated levels]
+
+--
+
+.pull-left[
+
+#### Avg departure delay by month
+
+
+```r
+# group data
+by_month &lt;- group_by(flights, month)
+
+# compute summary stat
+summarize(by_month, avg_delay = mean(dep_delay, na.rm = TRUE))
+## # A tibble: 12 x 2
+##    month avg_delay
+##    &lt;int&gt;     &lt;dbl&gt;
+##  1     1     10.0 
+##  2     2     10.8 
+##  3     3     13.2 
+##  4     4     13.9 
+##  5     5     13.0 
+##  6     6     20.8 
+##  7     7     21.7 
+##  8     8     12.6 
+##  9     9      6.72
+## 10    10      6.24
+## 11    11      5.44
+## 12    12     16.6
+```
+
+]
+
+.pull-right[
+
+#### Variability of delays by carrier
+
+
+```r
+# group data
+by_carrier &lt;- group_by(flights, carrier)
+
+# compute summary stat
+summarize(by_carrier, delay_sd = sd(dep_delay, na.rm = TRUE))
+## # A tibble: 16 x 2
+##    carrier delay_sd
+##    &lt;chr&gt;      &lt;dbl&gt;
+##  1 9E          45.9
+##  2 AA          37.4
+##  3 AS          31.4
+##  4 B6          38.5
+##  5 DL          39.7
+##  6 EV          46.6
+##  7 F9          58.4
+##  8 FL          52.7
+##  9 HA          74.1
+## 10 MQ          39.2
+## 11 OO          43.1
+## 12 UA          35.7
+## 13 US          28.1
+## 14 VX          44.8
+## 15 WN          43.3
+## 16 YV          49.2
+```
+
+]
+
+---
+
+# Grouping
+
+&lt;br&gt;
+.pull-left-60[
+
+&lt;img src="images/group-1.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;&lt;img src="images/group-2.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;&lt;img src="images/group-3.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right-40[
+&lt;br&gt;&lt;br&gt;
+&amp;nbsp;.bold[`group_by(data, country)`]
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&amp;nbsp;.bold[`group_by(data, country, year)`]
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&amp;nbsp;.bold[`ungroup(data)`]
+]
+
+---
+
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+1. In our __customers__ data, compute the average `CardSpendMonth` across all customers.
+2. Now compute the average `CardSpendMonth` for each `gender`.
+3. Now compute the average `CardSpendMonth` for each `gender` and `region`.  Which gender and region have the highest average spend? 
+
+]
+--
+.pull-right[
+
+### Solution
+
+
+```r
+# 1 
+summarize(customers, Avg_spend = mean(CardSpendMonth, na.rm = TRUE))
+
+# 2 
+by_gender &lt;- group_by(customers, Gender)
+summarize(by_gender, Avg_spend = mean(CardSpendMonth, na.rm = TRUE))
+
+# 3 
+by_gdr_rgn &lt;- group_by(customers, Gender, Region)
+avg_gdr_rgn &lt;- summarize(by_gdr_rgn, Avg_spend = mean(CardSpendMonth, na.rm = TRUE))
+arrange(avg_gdr_rgn, desc(Avg_spend))
+```
+
+]
+
+---
+
+# The pipe operator .blue[`%&gt;%`]
+
+Going back to our last problem, our code was doing three things:
+
+.pull-left[
+
+.font120[
+1. .blue[grouping by gender and region]
+
+2. .orange[summarizing average spend]
+
+3. .purple[sorting spend by greatest to least]
+]
+]
+
+.pull-right[
+
+
+
+```r
+# 1 grouping by gender and region
+by_gdr_rgn &lt;- group_by(customers, Gender, Region)
+
+# 2 summarizing average spend
+avg_gdr_rgn &lt;- summarize(by_gdr_rgn, Avg_spend = mean(CardSpendMonth, na.rm = TRUE))
+
+# 3 sorting spend by greatest to least
+arrange(avg_gdr_rgn, desc(Avg_spend))
+```
+
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-gray[.bold[Surely we can streamline our code and make it more efficient and legible!]]]
+
+
+---
+
+# The pipe operator .blue[`%&gt;%`]
+
+An alternative approach to perform these thing things:
+
+.pull-left[
+
+### Traditional approach
+
+&lt;img src="images/function-traditional.png" width="80%" height="80%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+
+
+```r
+by_gdr_rgn &lt;- group_by(customers, Gender, Region)
+avg_gdr_rgn &lt;- summarize(by_gdr_rgn, Avg_spend = mean(CardSpendMonth, na.rm = TRUE))
+arrange(avg_gdr_rgn, desc(Avg_spend))
+```
+
+]
+
+.pull-right[
+
+### pipe (`%&gt;%`) approach
+
+&lt;img src="images/function-pipe.png" width="90%" height="90%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+
+```r
+sub_cust %&gt;%
+  group_by(Gender, Region) %&gt;%
+  summarize(Avg_spend = mean(CardSpendMonth, na.rm = TRUE)) %&gt;%
+  arrange(desc(Avg_spend))
+```
+
+
+]
+
+---
+
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+.font90[
+Using the pipe operator follow these steps with the __customers__ data:
+
+1. filter for male customers only
+
+2. create a new variable: ratio = CardSpendMonth / HHIncome
+
+3. group this data by age
+
+4. compute the mean of the new ratio variable by age
+
+5. sort this output to find the age with the highest ratio of expenditures to income.
+]
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+customers %&gt;%
+  filter(Gender == "Male") %&gt;%
+  mutate(ratio = CardSpendMonth / HHIncome) %&gt;%
+  group_by(Age) %&gt;%
+  summarize(Avg_ratio = mean(ratio, na.rm = TRUE)) %&gt;%
+  arrange(desc(Avg_ratio))
+## # A tibble: 62 x 2
+##      Age Avg_ratio
+##    &lt;int&gt;     &lt;dbl&gt;
+##  1    20     0.147
+##  2    18     0.145
+##  3    79     0.144
+##  4    19     0.143
+##  5    24     0.136
+##  6    75     0.130
+##  7    78     0.128
+##  8    21     0.126
+##  9    28     0.125
+## 10    74     0.124
+## # ... with 52 more rows
+```
+
+]
+
+---
+
+# Cheat sheet
+
+
+&lt;img src="images/cheatsheet-dplyr.png" width="55%" height="55%" style="display: block; margin: auto;" /&gt;
+
+
+.center[.content-box-gray[.bold[`Help &gt;&gt; Cheatsheets &gt;&gt; Data Transformation with dplyr`]]]
+
+---
+
+class: center, middle, inverse
+
+# Visualizing Data
+
+---
+
+# ggplot
+&lt;br&gt;
+.pull-left[
+&lt;br&gt;
+* R has several systems for making graphs
+
+* `ggplot2` is the most elegant and versatile
+
+* Implements the grammar of graphics theory behind data visualization
+]
+
+.pull-right[
+
+&lt;img src="images/ggplot2.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Basics
+
+`ggplot2` works with a layer based mentality:
+
+.pull-left[
+
+```r
+ggplot(data, aes(x, y)) +
+  geom_xxx() +
+  scale_xxx() +
+  facet_xxx() +
+  ggtitle()
+```
+]
+
+--
+
+.pull-right[
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .1) +
+  scale_y_continuous(name = "Median Sales Price", labels = scales::dollar) +
+  scale_x_log10(name = "Total Sales Volume", labels = scales::comma) +
+  ggtitle("Texas Housing Sales",
+          subtitle = "Sales data from 2000-2010 provided by the TAMU real estate center")
+```
+
+&lt;img src="slides-source_files/figure-html/example-ggplot-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Prerequisites
+
+.pull-left[
+### Packages
+
+
+```r
+library(ggplot2) # or library(tidyverse)
+```
+
+]
+
+.pull-right[
+
+### Data
+
+
+```r
+# built-in data set
+mpg
+## # A tibble: 234 x 11
+##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
+##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
+##  1 audi         a4      1.8  1999     4 auto… f        18    29 p     com…
+##  2 audi         a4      1.8  1999     4 manu… f        21    29 p     com…
+##  3 audi         a4      2    2008     4 manu… f        20    31 p     com…
+##  4 audi         a4      2    2008     4 auto… f        21    30 p     com…
+##  5 audi         a4      2.8  1999     6 auto… f        16    26 p     com…
+##  6 audi         a4      2.8  1999     6 manu… f        18    26 p     com…
+##  7 audi         a4      3.1  2008     6 auto… f        18    27 p     com…
+##  8 audi         a4 q…   1.8  1999     4 manu… 4        18    26 p     com…
+##  9 audi         a4 q…   1.8  1999     4 auto… 4        16    25 p     com…
+## 10 audi         a4 q…   2    2008     4 manu… 4        20    28 p     com…
+## # ... with 224 more rows
+```
+
+]
+
+
+---
+
+# Canvas layer
+
+.bold[We can create a "canvas" for our plot with...]
+
+.pull-left[
+
+
+```r
+ggplot(data = mpg)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy))
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Plotting our data with .blue[geoms]
+
+.pull-left[
+* We display data with geometric shapes
+
+* ~ 30 built-in geoms (with many more offered by other pkgs)
+   - `geom_point()`
+   - `geom_line()`
+   - `geom_histogram()`
+   - `geom_density()`
+   - `geom_freqpoly()`
+   - `geom_boxplot()`
+   - `geom_violin()`
+   - `geom_bar()`
+   - `geom_count()`
+   - `geom_smooth()`
+
+.center[.content-box-gray[.bold[See full list with `geom_` + tab]]]
+]
+
+---
+
+# Plotting our data with .blue[geoms]
+
+.pull-left[
+* We display data with geometric shapes
+
+* ~ 30 built-in geoms (with many more offered by other pkgs)
+   - `geom_point()`
+   - `geom_line()`
+   - .blue[.bold[`geom_histogram()`]]
+   - .blue[.bold[`geom_density()`]]
+   - .blue[.bold[`geom_freqpoly()`]]
+   - `geom_boxplot()`
+   - `geom_violin()`
+   - `geom_bar()`
+   - `geom_count()`
+   - `geom_smooth()`
+
+.center[.content-box-gray[.bold[See full list with `geom_` + tab]]]
+]
+
+.pull-right[
+&lt;br&gt;&lt;br&gt;
+
+```r
+ggplot(data = mpg, aes(x = hwy)) +
+  geom_histogram()
+
+ggplot(data = mpg, aes(x = hwy)) +
+  geom_freqpoly()
+
+ggplot(data = mpg, aes(x = hwy)) +
+  geom_density()
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Plotting our data with .blue[geoms]
+
+.pull-left[
+* We display data with geometric shapes
+
+* ~ 30 built-in geoms (with many more offered by other pkgs)
+   - `geom_point()`
+   - `geom_line()`
+   - `geom_histogram()`
+   - `geom_density()`
+   - `geom_freqpoly()`
+   - .blue[.bold[`geom_boxplot()`]]
+   - .blue[.bold[`geom_violin()`]]
+   - .blue[.bold[`geom_bar()`]]
+   - `geom_count()`
+   - `geom_smooth()`
+
+.center[.content-box-gray[.bold[See full list with `geom_` + tab]]]
+]
+
+.pull-right[
+&lt;br&gt;&lt;br&gt;
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_violin()
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+Using the __customers__ data:
+
+1. Create a chart that illustrates the distribution of the DebtToIncomeRatio variable.
+
+2. Create a chart that shows the counts for each JobCategory
+
+3. Create a scatter plot of HHIncome vs CardSpendMonth 
+]
+
+--
+
+.pull-right[
+
+### Solutions
+
+
+```r
+#1: distribution of DebtToIncomeRatio variable
+ggplot(data = customer, aes(x = DebtToIncomeRatio)) +
+ geom_histogram()
+
+#2: distribution of JobCategory variable
+ggplot(data = customer, aes(x = JobCategory)) +
+ geom_bar()
+
+#3: scatter plot for HHIncome vs CardSpendMonth
+ggplot(data = customer, aes(x = HHIncome, y = CardSpendMonth)) +
+ geom_point()
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Non-mapping aesthetics
+
+.pull-left[
+
+We can also change other visual aesthetics in our plots:
+
+* .blue[c].orange[o].gray[l].purple[o].red[r]
+
+* .font70[s].font120[i]z.font110[e] 
+
+* sh&amp;#9653;pe (0-25 `?pch`)
+
+* .opacity[opacity]
+]
+
+--
+
+.pull-right[
+&lt;br&gt;
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue", size = 2, shape = 17, alpha = .5)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
+
+.center[.content-box-gray[.bold[But why are some points darker? 🤔]]]
+
+]
+
+---
+
+# Non-mapping aesthetics
+
+.pull-left[
+
+We can also change other visual aesthetics in our plots:
+
+* .blue[c].orange[o].gray[l].purple[o].red[r]
+
+* .font70[s].font120[i]z.font110[e] 
+
+* sh&amp;#9653;pe (0-25 `?pch`)
+
+* .opacity[opacity]
+]
+
+
+.pull-right[
+&lt;br&gt;
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+* geom_jitter(color = "blue", size = 2, shape = 17, alpha = .5, width = .5)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+
+.center[.content-box-gray[.bold[Ahhhhhh, I see 😎]]]
+
+]
+
+
+---
+
+# Adding a 3&lt;sup&gt;rd&lt;/sup&gt; dimension
+
+.bold[By moving the color argument to within aes(), we can mapa 3rd variable to our plot]
+
+.pull-left[
+
+#### Non-mapping color aesthetic
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+* geom_point(color = "blue")
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-52-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+#### Mapping color aesthetic to class variable
+
+
+```r
+*ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+&lt;img src="slides-source_files/figure-html/mapping-ggplot-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+.pull-left[
+
+### Challenge
+
+1. Create a scatter plot of `HHIncome` vs `CardSpendMonth` and color all points blue.
+
+2. Create a scatter plot of `HHIncome` vs `CardSpendMonth` and color all points based on whether or not the customer is retired.
+]
+
+--
+
+.pull-right[
+
+### Solution
+
+
+```r
+#1 left
+ggplot(customers, aes(x = HHIncome, y = CardSpendMonth)) + 
+  geom_point(color = "blue")
+
+#2 right
+ggplot(customers, aes(x = HHIncome, y = CardSpendMonth, color = Retired)) + 
+  geom_point()
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Creating small multiples with .red[facets]
+
+.bold[The `facet_xxx()` functions provide a simple way to create small multiples.]
+
+--
+.scrollable90[
+.pull-left[
+
+.bold[`facet_wrap()`]: primarily used to create small multiples based on a single variable
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+* facet_wrap(~ class, nrow = 2)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+.bold[`facet_grid()`]: primarily used to create small multiples grid based on two variables
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+* facet_grid(drv ~ cyl)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: yourturn
+
+# Your Turn!
+
+
+### Challenge
+
+
+
+1. Create a scatter plot of `HHIncome` vs `CardSpendMonth` facetted by `JobCategory`.
+2. Create a scatter plot of `HHIncome` vs `CardSpendMonth` facetted by `JobCategory` and `Gender`.
+3. Assess `UnionMember` across each `JobCategory`.
+
+--
+
+.scrollable90[
+.pull-left[
+
+```r
+# 1
+ggplot(customer, aes(x = HHIncome, y = CardSpendMonth)) + 
+  geom_point() + 
+  facet_wrap(~ JobCategory)
+
+
+
+
+
+
+
+
+# 2 
+ggplot(customer, aes(x = HHIncome, y = CardSpendMonth)) + 
+  geom_point() + 
+  facet_grid(Gender ~ JobCategory)
+
+
+
+
+
+
+
+
+# 3
+ggplot(customers, aes(x = UnionMember)) + 
+  geom_bar() + 
+  facet_wrap(~ JobCategory)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+]
+
+]
+
+---
+
+# Titles &amp; Axes
+
+.bold[We can add titles with `ggtitle()` or with `labs()`]
+
+--
+
+.pull-left[
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_jitter() +
+* ggtitle("Displacement vs Highway MPG",
+*         subtitle = "Data from 1999 &amp; 2008")
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+
+
+```r
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_jitter() +
+* labs(
+*   title = "Displacement vs Highway MPG",
+*   subtitle = "Data from 1999 &amp; 2008",
+*   caption = "http://fueleconomy.gov"
+*   )
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+# Titles &amp; Axes
+
+.bold[We can add adjust axes with various `scale_xxxx()` functions]
+
+--
+
+.pull-left[
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .25) +
+* scale_x_log10()
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-61-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .25)  +
+* scale_y_continuous(name = "Median Sales Price", labels = scales::dollar) +
+* scale_x_log10(name = "Total Sales Volume", labels = scales::comma)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-62-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Putting it all together...
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .15) +
+  scale_y_continuous(name = "Median Sales Price", labels = scales::dollar) +
+  scale_x_log10(name = "Total Sales Volume", labels = scales::comma) +
+  labs(
+    title = "Texas Housing Sales",
+    subtitle = "Sales data from 2000-2010 provided by the TAMU real estate center",
+    caption = " http://recenter.tamu.edu/"
+    )
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-63-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: yourturn
+
+# Your Turn!
+
+.bold[.font130[Challenge]]
+
+1. Remove all missing values from the __customers__ data and then...
+2. Create a scatter plot of `HHIncome` vs `CardSpendMonth` facetted by `JobCategory` and...
+3. add a title, subtitle, and nicely format the axes.
+
+--
+
+.scrollable90[
+
+### Solution
+
+
+```r
+customers %&gt;%
+  na.omit() %&gt;%
+  ggplot(aes(x = HHIncome, y = CardSpendMonth)) + 
+  geom_point(alpha = .3) + 
+  facet_wrap(~ JobCategory) +
+  scale_x_log10("Household Income", labels = scales::dollar) +
+  scale_y_log10("Monthly Card Expenditures", labels = scales::dollar) +
+  ggtitle("Relationship between income and credit card expenditures",
+         subtitle = "All customers (4th Qtr 2015)")
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+]
+
+---
+
+# Overplotting
+
+.bold[Working in a layer mentality allows us to add multiple geoms, which can highlight certain patterns.]
+
+--
+
+.scrollable90[
+
+.pull-left[
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .1)  +
+  scale_x_log10() +
+* geom_smooth()
+
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .1)  +
+  scale_x_log10() +
+* geom_smooth(method = "lm")
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-66-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+
+```r
+ggplot(data = txhousing, aes(x = volume, y = median)) + 
+  geom_point(alpha = .1)  +
+  scale_x_log10() +
+* geom_smooth(method = "lm") +
+* facet_wrap(~ month)
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-67-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+
+class: yourturn
+
+# Your Turn!
+
+.bold[.font130[Challenge]]
+
+1. Remove all missing values from the customer data and then…
+2. Create a scatter plot of `HHIncome` vs `CardSpendMonth` facetted by `JobCategory` and…
+3. add a title, subtitle, and nicely format the axes and…
+4. add a linear line to assess if the slope changes across `JobCategory`
+
+--
+
+.scrollable90[
+
+### Solution
+
+
+```r
+customers %&gt;%
+  na.omit() %&gt;%
+  ggplot(aes(x = HHIncome, y = CardSpendMonth)) + 
+  geom_point(alpha = .3) + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~ JobCategory) +
+  scale_x_log10("Household Income", labels = scales::dollar) +
+  scale_y_log10("Monthly Card Expenditures", labels = scales::dollar) +
+  ggtitle("Relationship between income and credit card expenditures",
+          subtitle = "All customers (4th Qtr 2015)")
+```
+
+&lt;img src="slides-source_files/figure-html/unnamed-chunk-68-1.png" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+]
+
+---
+
+# Cheat sheet
+
+
+&lt;img src="images/cheatsheet-ggplot2.png" width="55%" height="55%" style="display: block; margin: auto;" /&gt;
+
+
+.center[.content-box-gray[.bold[`Help &gt;&gt; Cheatsheets &gt;&gt; Data Visualization with ggplot2`]]]
+
+---
+class: center, middle, inverse
+
+# Now what?
+
+---
+
+# Continue your learning journey
+
+.pull-left[
+
+.center[.font150[.bold[R for Data Science]]]
+
+&lt;img src="images/R4DS.png" width="45%" height="45%" style="display: block; margin: auto;" /&gt;
+
+.center[.content-box-gray[[http://r4ds.had.co.nz/](http://r4ds.had.co.nz/)]]
+
+]
+
+.pull-right[
+
+.center[.font150[.bold[Effoverse]]] 
+
+&lt;img src="images/effoverse.png" width="53%" height="53%" style="display: block; margin: auto;" /&gt;
+
+.center[.content-box-gray[[http://effoverse.8451.com](http://effoverse.8451.com)]]
+]
+
+---
+
+# Questions
+
+&lt;br&gt;
+
+&lt;img src="images/questions.png" width="450" height="450" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
